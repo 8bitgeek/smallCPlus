@@ -7,7 +7,7 @@ following:
 - Removed Terminating ^Z characters ala CP/M
 - Renamed functions which conflict with GCC keywords (const, jump, etc...) 
 
-========= Original 'READ.ME' file from 1988 ========
+==== The following is The Original 'READ.ME' file from 1988 =====
 
 This Small-C/Plus compiler is based on the 'Small C Compiler
 with Floating Point (Z80)', SIG/M Volume 224.  The new features

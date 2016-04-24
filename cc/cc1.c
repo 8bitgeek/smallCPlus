@@ -19,11 +19,11 @@
 
 /*	Now reserve some storage words		*/
 
-char Version[] = "       25th February 1988" ;
+char Version[] = "       25th February 1988 / 15th April 2016" ;
 
-char Banner[] =  "* * *  Small-C/Plus  Version 1.00  * * *" ;
+char Banner[] =  "* * *  Small-C/Plus  Version 1.01  * * *" ;
 
-char Author[] =  "       Cain, Van Zandt, Hendrix, Yorston" ;
+char Author[] =  "       Cain, Van Zandt, Hendrix, Yorston, Sharkey" ;
 
 extern char Overflow[] ;
 
