@@ -38,7 +38,7 @@ extern int minavail ;
 callfunction(ptr)
 SYMBOL *ptr;	/* symbol table entry (or 0) */
 {
-	int nargs, const, val ;
+	int nargs, constant, val ;
 
 	nargs=0;
 	blanks();	/* already saw open paren */
@@ -47,7 +47,7 @@ SYMBOL *ptr;	/* symbol table entry (or 0) */
 		if(endst())break;
 		if ( ptr ) {
 			/* ordinary call */
-			if(expression(&const, &val)==DOUBLE) {
+			if(expression(&constant, &val)==DOUBLE) {
 				dpush();
 				nargs += 6;
 			}
@@ -58,7 +58,7 @@ SYMBOL *ptr;	/* symbol table entry (or 0) */
 		}
 		else { /* call to address in HL */
 			zpush();	/* push argument */
-			if(expression(&const, &val)==DOUBLE) {
+			if(expression(&constant, &val)==DOUBLE) {
 				dpush2();
 				nargs += 6;
 			}
@@ -588,7 +588,7 @@ inbyte()
 	return gch();
 }
 
-inline()
+fninline()
 {
 	FILE *unit ;
 	int k ;
@@ -630,7 +630,7 @@ ifline()
 
 	while ( 1 ) {
 
-		inline() ;
+		fninline() ;
 		if ( eof ) return ;
 
 		if ( ch() == '#' ) {
@@ -754,7 +754,7 @@ preprocess()
 					++lptr;
 				}
 				else {
-					inline() ;
+					fninline() ;
 					if(eof)break;
 				}
 			}
@@ -1252,4 +1252,3 @@ char c ;
 	}
 	return c ;
 }
-

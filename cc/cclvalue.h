@@ -15,4 +15,3 @@ struct lvalue {
 } ;
 
 #define LVALUE struct lvalue
-

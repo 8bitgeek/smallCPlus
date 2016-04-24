@@ -220,7 +220,7 @@ doif()
 	flab2 = getlabel() ;
 	if ( lastst != STRETURN ) {
 		/* if last statement of 'if' was 'return' we needn't skip 'else' code */
-		jump(flab2);
+		jmp(flab2);
 	}
 	postlabel(flab1);				/* print false label */
 	statement();					/* and do 'else' clause */
@@ -233,11 +233,11 @@ doif()
 doexpr()
 {
 	char *before, *start ;
-	int type, const, val ;
+	int type, constant, val ;
 
 	while (1) {
 		setstage(&before, &start) ;
-		type = expression(&const, &val) ;
+		type = expression(&constant, &val) ;
 		clearstage( before, start ) ;
 		if ( ch() != ',' ) return type ;
 		inbyte() ;
@@ -256,7 +256,7 @@ dowhile()
 	postlabel(wq.loop) ;	/* loop label */
 	test(wq.exit, YES) ;	/* see if true */
 	statement() ;			/* if so, do a statement */
-	jump(wq.loop) ;			/* loop to label */
+	jmp(wq.loop) ;			/* loop to label */
 	postlabel(wq.exit) ;	/* exit label */
 	delwhile() ;			/* delete queue entry */
 }
@@ -275,7 +275,7 @@ dodo()
 	needtoken("while") ;
 	postlabel(wq.loop) ;
 	test(wq.exit, YES) ;
-	jump(top);
+	jmp(top);
 	postlabel(wq.exit) ;
 	delwhile() ;
 	ns() ;
@@ -302,16 +302,16 @@ dofor()
 		test(wq.exit, NO ) ;	/* expr 2 */
 		ns() ;
 	}
-	jump(lab2) ;
+	jmp(lab2) ;
 	postlabel(wq.loop) ;
 	if ( cmatch(')') == 0 ) {
 		doexpr() ;				/* expr 3 */
 		needchar(')') ;
 	}
-	jump(lab1) ;
+	jmp(lab1) ;
 	postlabel(lab2) ;
 	statement() ;
-	jump(wq.loop) ;
+	jmp(wq.loop) ;
 	postlabel(wq.exit) ;
 	delwhile() ;
 }
@@ -335,9 +335,9 @@ doswitch()
 	needchar(')') ;
 	swdefault = 0 ;
 	swactive = 1 ;
-	jump(endlab=getlabel()) ;
+	jmp(endlab=getlabel()) ;
 	statement() ;		/* cases, etc. */
-	jump(wq.exit) ;
+	jmp(wq.exit) ;
 	postlabel(endlab) ;
 	sw() ;				/* insert code to match cases */
 	while ( swptr < swnext ) {
@@ -351,7 +351,7 @@ doswitch()
 	defword() ;
 	outdec(0) ;
 	nl() ;
-	if (swdefault) jump(swdefault) ;
+	if (swdefault) jmp(swdefault) ;
 	postlabel(wq.exit) ;
 	delwhile() ;
 	swnext = swnex ;
@@ -429,7 +429,7 @@ dobreak()
 	/* see if any "whiles" are open */
 	if ((ptr=readwhile(wqptr))==0) return;	/* no */
 	modstk(ptr->sp, NO);	/* else clean up stk ptr */
-	jump(ptr->exit) ;		/* jump to exit label */
+	jmp(ptr->exit) ;		/* jump to exit label */
 }
 
 /*
@@ -447,7 +447,7 @@ docont()
 		if ( ptr->loop ) break ;
 	}
 	modstk(ptr->sp, NO) ;	/* else clean up stk ptr */
-	jump(ptr->loop) ;		/* jump to loop label */
+	jmp(ptr->loop) ;		/* jump to loop label */
 }
 
 /*
@@ -475,4 +475,3 @@ doasm()
 	clear() ;		/* invalidate line */
 	cmode=1 ;		/* then back to parse level */
 }
-

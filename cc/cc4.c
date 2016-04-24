@@ -41,10 +41,10 @@ LVALUE *lval ;
 		}
 		else if (hits) {
 			dropout(k, testfunc, droplab, lval) ;
-			const(endval) ;
-			jump(endlab=getlabel()) ;
+			const1(endval) ;
+			jmp(endlab=getlabel()) ;
 			postlabel(droplab);
-			const(dropval);
+			const1(dropval);
 			postlabel(endlab) ;
 			lval->indirect = lval->ptr_type = lval->is_const =
 				lval->const_val = 0 ;
@@ -65,7 +65,7 @@ LVALUE *lval ;
 	if ( k )
 		rvalue(lval) ;
 	else if ( lval->is_const )
-		const(lval->const_val) ;
+		const1(lval->const_val) ;
 	(*testfunc)(exit1) ;		/* jump on false */
 }
 
@@ -117,7 +117,7 @@ int (*oper)(), (*uoper)(), (*doper)();
 		if ( lval2->is_const ) {
 			/* constant on right, load primary */
 			if ( lval2->const_val == 0 ) lval->stage_add = start ;
-			const(lval2->const_val) ;
+			const1(lval2->const_val) ;
 			dcerror(lval) ;
 		}
 		if ( lval->val_type != DOUBLE && lval2->val_type != DOUBLE )
@@ -242,17 +242,17 @@ int (*oper)(), (*doper)() ;
 		/* scale difference between pointers */
 		if( lval->ptr_type == CINT && lval2->ptr_type == CINT ) {
 			swap();
-			const(1) ;
+			const1(1) ;
 			asr(); /*  div by 2  */
 		}
 		else if( lval->ptr_type == DOUBLE && lval2->ptr_type == DOUBLE ) {
 			swap();
-			const(6) ;
+			const1(6) ;
 			div(); /* div by 6 */
 		}
 		else if ( lval->ptr_type == STRUCT && lval2->ptr_type == STRUCT ) {
 			swap() ;
-			const(lval->tagsym->size) ;
+			const1(lval->tagsym->size) ;
 			div() ;
 		}
 	}
@@ -281,7 +281,7 @@ LVALUE *lval ;
 
 	setstage(&before, &start) ;
 	k = plnge1(heir1a, lval);
-	if ( lval->is_const ) const(lval->const_val) ;
+	if ( lval->is_const ) const1(lval->const_val) ;
 	doper = 0 ;
 	if ( cmatch('=') ) {
 		if ( k == 0 ) {
@@ -344,7 +344,7 @@ LVALUE *lval ;
 		/* evaluate 'true' expression */
 		if ( heir1(&lval2) ) rvalue(&lval2) ;
 		needchar(':') ;
-		jump(endlab=getlabel()) ;
+		jmp(endlab=getlabel()) ;
 		/* evaluate 'false' expression */
 		postlabel(falselab) ;
 		if ( heir1(lval) ) rvalue(lval) ;
@@ -355,7 +355,7 @@ LVALUE *lval ;
 			postlabel(endlab) ;
 		}
 		else if ( lval2.val_type != DOUBLE && lval->val_type == DOUBLE ) {
-			jump(skiplab=getlabel()) ;
+			jmp(skiplab=getlabel()) ;
 			postlabel(endlab) ;
 			callrts("qfloat") ;
 			postlabel(skiplab) ;
@@ -795,4 +795,3 @@ LVALUE *lval ;
 	}
 	return k;
 }
-

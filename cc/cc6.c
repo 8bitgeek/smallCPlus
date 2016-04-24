@@ -99,7 +99,7 @@ getloc(sym, off)
 SYMBOL *sym;
 int off ;
 {
-	const(sym->offset.i - Zsp + off);
+	const1(sym->offset.i - Zsp + off);
 	ol("ADD HL,SP");
 }
 
@@ -305,7 +305,7 @@ int n;
 }
 
 /* Jump to specified internal label number */
-jump(label)
+jmp(label)
 int label;
 {
 	ot("JP ");
@@ -393,7 +393,7 @@ int save ;		/* if true preserve contents of HL */
 		}
 	}
 	if ( save ) swap() ;
-	const(k) ;
+	const1(k) ;
 	ol("ADD HL,SP");
 	ol("LD SP,HL");
 	if ( save ) swap() ;
@@ -802,4 +802,3 @@ dge()
 }
 
 /*	<<<<<  End of Small-C/Plus compiler  >>>>>	*/
-

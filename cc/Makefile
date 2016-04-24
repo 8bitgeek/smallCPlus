@@ -1,14 +1,25 @@
 # Mike Sharkey <mike@8bitgeek.net>
+TARGET=cc
 CC=gcc
-CFLAGS=-I.
+INC=-I/usr/include
+CFLAGS=-fno-builtin $(INC)
 
-DEPS = part1/ctype.h part1/float.h part1/math.h part1/plot.h part1/stdio.h part1/
+DEPS =	ccdefs.h	\
+	ccfunc.h	\
+	cclvalue.h
 
-
-OBJ = hellomake.o hellofunc.o 
+OBJ =	cc1.o	\
+	cc2.o	\
+	cc3.o	\
+	cc4.o	\
+	cc5.o	\
+	cc6.o
 
 %.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) $(CFLAGS) -c -o $@ $< 
 
-hellomake: $(OBJ)
-	gcc -o $@ $^ $(CFLAGS)
+$(TARGET): $(OBJ)
+	gcc $(CFLAGS) -o $@ $^
+	
+clean:
+	rm -f $(OBJ) $(TARGET) cc.asm

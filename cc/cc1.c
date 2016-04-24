@@ -1173,4 +1173,3 @@ TAG_SYMBOL *otag ;	/* structure tag for STRUCT type objects */
 	}
 	ns() ;
 }
-

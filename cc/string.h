@@ -7,4 +7,3 @@ extern char *strcpy() ;
 extern char *strncpy() ;
 extern char *strchr() ;
 extern char *strrchr() ;
-

@@ -51,4 +51,3 @@ int ifix();	/* floating point to integer
 	GLOBAL	QRAND
 	GLOBAL	SGN
 #endasm
-

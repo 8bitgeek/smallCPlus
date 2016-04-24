@@ -98,7 +98,7 @@ LVALUE *lval;
 	}
 	else {
 		error("invalid expression");
-		const(0);
+		const1(0);
 		junk();
 		return 0;
 	}
@@ -379,7 +379,7 @@ int label, parens;
 			return ;
 		}
 		/* false constant, jump round body */
-		jump(label) ;
+		jmp(label) ;
 		return ;
 	}
 	if ( lval.stage_add ) {		/* stage address of "..oper 0" code */
@@ -391,7 +391,7 @@ int label, parens;
 		else if ( oper == zge ) zerojump(ge0, label, &lval) ;
 		else if ( oper == uge ) clearstage(lval.stage_add, 0) ;
 		else if ( oper == zlt ) zerojump(lt0, label, &lval) ;
-		else if ( oper == ult ) zerojump(jump, label, &lval) ;
+		else if ( oper == ult ) zerojump(jmp, label, &lval) ;
 		else if ( oper == zle ) zerojump(le0, label, &lval) ;
 		else testjump(label) ;
 	}
@@ -420,7 +420,7 @@ int *val ;
 /*
  * load constant into primary register
  */
-const(val)
+const1(val)
 int val ;
 {
 	immed();
@@ -752,6 +752,5 @@ LVALUE *lval ;
 	needchar(')') ;
 	lval->is_const = 1 ;
 	lval->val_type = CINT ;
-	const(lval->const_val) ;
+	const1(lval->const_val) ;
 }
-

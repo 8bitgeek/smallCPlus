@@ -64,4 +64,3 @@ FILE *fd ;
 	_fnext[index] = next ;
 	return c-s ;
 }
-

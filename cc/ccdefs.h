@@ -2,11 +2,11 @@
 
 /*	Stand-alone definitions			*/
 
-#define NULL	0
 #define NO		0
 #define YES		1
 
 #ifdef SMALL_C
+#define NULL	0
 #define NULL_FD 0
 #define NULL_FN 0
 #define NULL_CHAR 0
@@ -189,4 +189,3 @@ struct while_tab {
 #define WQ_CAST (WHILE_TAB *)
 #define SW_CAST (SW_TAB *)
 #endif
-

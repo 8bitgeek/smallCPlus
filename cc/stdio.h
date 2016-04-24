@@ -9,6 +9,8 @@ extern char *stdin, *stdout ;
 #define EOF (-1)
 #endif
 
+#ifdef Z80
+
 #asm	
 	GLOBAL	CCAND
 	GLOBAL	CCASR
@@ -81,6 +83,7 @@ extern char *stdin, *stdout ;
 	GLOBAL	QSSCANF
 #endasm
 
+#endif
+
 extern double atof() ;
-extern char *fputs() ;
-
+extern int fputs(const char *s, FILE *stream) ;
