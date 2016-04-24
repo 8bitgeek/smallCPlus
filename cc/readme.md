@@ -1,3 +1,14 @@
+Toying with the idea of porting this compiler for ARM Cortex-M.
+
+Starting with porting it to a modern GCC compiler resulted in the
+following:
+
+- Created Makefile for Linux/GCC compiler.
+- Removed Terminating ^Z characters ala CP/M
+- Renamed functions which conflict with GCC keywords (const, jump, etc...) 
+
+========= Original 'READ.ME' file from 1988 ========
+
 This Small-C/Plus compiler is based on the 'Small C Compiler
 with Floating Point (Z80)', SIG/M Volume 224.  The new features
 it provides include:
@@ -30,4 +41,3 @@ Bug reports, bug fixes and comments should be addressed to:
     Lower Field Road
     Reading
     RG1 6AS
-
